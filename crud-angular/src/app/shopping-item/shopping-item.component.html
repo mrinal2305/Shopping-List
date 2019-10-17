@@ -1,0 +1,60 @@
+<form #frm = "ngForm" (ngSubmit)="addItem(frm)" *ngIf = "!toggleForm">
+  <h3>Add Items</h3>
+<div class="form-group">
+  <label for="">
+    Name:
+  </label>
+  <input type="text" class="form-control" name="itemName" required value="" ngModel>
+</div>
+<div class="form-group">
+  <label for="">
+    Quantity:
+  </label>
+  <input type="number" class="form-control" name="itemQuantity" required value="" ngModel>
+</div>
+<button type="submit" name="button" class="btn btn-success" [disabled]=frm.invalid>Add Item</button>
+<br><br>
+</form>
+
+<form #editForm = "ngForm" (ngSubmit)="editItem(editForm)" *ngIf = "toggleForm">
+    <h3>Edit Items</h3>
+  <div class="form-group">
+    <label for="">
+      Name:
+    </label>
+    <input type="text" class="form-control" name="itemName" value="" [ngModel]="selectedItem.itemName">
+  </div>
+  <div class="form-group">
+    <label for="">
+      Quantity:
+    </label>
+    <input type="number" class="form-control" name="itemQuantity" value="" [ngModel]="selectedItem.itemQuantity">
+  </div>
+  <button type="submit" name="button" class="btn btn-success" (click)="item()">Add Item</button>
+  <br><br>
+  </form>
+
+  <h3>Shopping List</h3><br>
+  <div *ngFor="let item of shoppingItemList">
+    <div class="row">
+    <div class="col-1">
+      <input type="checkbox"
+      [checked]="item.itemBought"
+      (click)=  "updateItemCheckbox(item)"
+      name="">
+    </div>
+    <div class="col-3">
+      {{item.itemName}}
+    </div>
+    <div class="col-2">
+      {{item.itemQuantity}}
+    </div>
+    <div class="col-3">
+      <button type="button" name="button" class="btn btn-primary" (click)="showEditForm(item)" [disabled]="toggleForm">Edit</button>
+    </div>
+    <div class="col-3">
+      <button type="button" name="button" class="btn btn-danger" (click)="deleteItem(item._id)">Delete</button>
+    </div>
+  </div>
+  <br>
+</div>
